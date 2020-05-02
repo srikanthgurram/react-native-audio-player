@@ -4,14 +4,23 @@ import {
     View,
     Text,
     Image,
-    Dimensions
+    Dimensions,
+    TouchableOpacity
 } from 'react-native';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
   
 const PlayerScreen = props => {
   const title = props.navigation.getParam('title');
   const audioUrl = props.navigation.getParam('url');
   const albumArt = props.navigation.getParam('albumArt');
+  const PlayButton = () => (
+    <TouchableOpacity activeOpacity={0.5} onPress={() => {}}>
+    <Icon name="play" size={30}/>
+  </TouchableOpacity>
+  )
+
   return (
+    
     <View style={styles.container}>
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitle}>{title}</Text>
@@ -21,6 +30,9 @@ const PlayerScreen = props => {
       </View>
       <View style={styles.imageContiner}>
         <Image source={albumArt} style={styles.Image}/>
+      </View>
+      <View style={styles.buttonContainer}>
+        <PlayButton />
       </View>
     </View>
   )
@@ -74,6 +86,11 @@ const styles = StyleSheet.create({
     image:{
       width: '100%',
       height: '100%'
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      width: '80%',
+      justifyContent: 'space-evenly'
     }
   });
 
