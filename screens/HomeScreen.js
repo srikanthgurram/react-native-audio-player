@@ -5,7 +5,8 @@ import {
     Text,
     Button
 } from 'react-native';
-  
+import { PlaylistData } from '../data/dummy-data'
+
 const HomeScreen = props => {
     return (
         <View style={styles.sectionContainer}>
@@ -13,7 +14,15 @@ const HomeScreen = props => {
             <Text style={styles.sectionDescription}>
                 Tap on the follwing button to launch the Audio player
             </Text>
-            <Button title='Player' onPress={() => props.navigation.navigate('Player')}/>
+            <Button title='Player' onPress={() => {
+              props.navigation.navigate({
+                routeName: 'Player', 
+                params: {
+                  title: PlaylistData[0].title,
+                  albumArt: PlaylistData[0].albumArt
+                }
+            });
+            }}/>
         </View>
     )
 }
