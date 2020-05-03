@@ -7,22 +7,106 @@ import {
     Dimensions
 } from 'react-native';
 import Player from '../components/Player'
+import TrackPlayer, { usePlaybackState } from "react-native-track-player";
+import localTrack from "../resources/pure.m4a";
+import { PlaylistData } from '../data/dummy-data'
 
 const PlayerScreen = props => {
   const title = props.navigation.getParam('title');
   const audioUrl = props.navigation.getParam('url');
   const albumArt = props.navigation.getParam('albumArt');
   const [isPlaying, setIsPlaying] = useState(false);
+  const playbackState = usePlaybackState();
 
+  useEffect(() => {
+    setup();
+  }, []);
+  
+  async function setup() {
+    await TrackPlayer.setupPlayer({});
+    await TrackPlayer.updateOptions({
+      stopWithApp: true,
+      capabilities: [
+        TrackPlayer.CAPABILITY_PLAY,
+        TrackPlayer.CAPABILITY_PAUSE,
+        TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+        TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+        TrackPlayer.CAPABILITY_STOP
+      ],
+      compactCapabilities: [
+        TrackPlayer.CAPABILITY_PLAY,
+        TrackPlayer.CAPABILITY_PAUSE
+      ]
+    });
+  }
+
+  async function togglePlayback() {
+    const currentTrack = await TrackPlayer.getCurrentTrack();
+    if (currentTrack == null) {
+      await TrackPlayer.reset();
+      await TrackPlayer.add(PlaylistData);
+      await TrackPlayer.add({
+        id: "local-track",
+        url: localTrack,
+        title: "Pure (Demo)",
+        artist: "David Chavez",
+        artwork: require("../resources/pure.jpg"),
+        duration: 28
+      });
+      await TrackPlayer.play();
+    } else {
+      if (playbackState === TrackPlayer.STATE_PAUSED) {
+        await TrackPlayer.play();
+      } else {
+        await TrackPlayer.pause();
+      }
+    }
+  }
+  
   return (
     <View style={styles.container}>
-      <Player 
-        title={title}
-        url={audioUrl}
-        albumArt={albumArt}
+      <Player
+        onNext={skipToNext}
+        onPrevious={skipToPrevious}
+        onTogglePlayback={togglePlayback}
+        onStop={stopPlayback}
       />
+      <Text style={styles.state}>{getStateName(playbackState)}</Text>
     </View>
   )
+}
+
+function getStateName(state) {
+  switch (state) {
+    case TrackPlayer.STATE_NONE:
+      return "None";
+    case TrackPlayer.STATE_PLAYING:
+      return "Playing";
+    case TrackPlayer.STATE_PAUSED:
+      return "Paused";
+    case TrackPlayer.STATE_STOPPED:
+      return "Stopped";
+    case TrackPlayer.STATE_BUFFERING:
+      return "Buffering";
+  }
+}
+
+async function skipToNext() {
+  try {
+    await TrackPlayer.skipToNext();
+  } catch (_) {}
+}
+
+async function skipToPrevious() {
+  try {
+    await TrackPlayer.skipToPrevious();
+  } catch (_) {}
+}
+
+async function stopPlayback() {
+  try {
+    await TrackPlayer.stop();
+  } catch (_) {}
 }
 
 const styles = StyleSheet.create({

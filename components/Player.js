@@ -8,31 +8,56 @@ import {
     TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-  
+import TrackPlayer, {
+  useTrackPlayerProgress,
+  usePlaybackState,
+  useTrackPlayerEvents
+} from "react-native-track-player";
+
 const Player = props => {
+  const playbackState = usePlaybackState();
+  const [trackTitle, setTrackTitle] = useState("");
+  const [trackArtwork, setTrackArtwork] = useState();
+  const [trackArtist, setTrackArtist] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
+  const { style, onNext, onPrevious, onTogglePlayback, onStop } = props;
+
+  useTrackPlayerEvents(["playback-track-changed"], async event => {
+    if (event.type === TrackPlayer.TrackPlayerEvents.PLAYBACK_TRACK_CHANGED) {
+      const track = await TrackPlayer.getTrack(event.nextTrack);
+      const { title, artist, artwork } = track || {};
+      setTrackTitle(title);
+      setTrackArtist(artist);
+      setTrackArtwork(artwork);
+    }
+  });
 
   const StopButton = () => (
-    <TouchableOpacity activeOpacity={0.5} onPress={stopMusic}>
+    <TouchableOpacity activeOpacity={0.5} onPress={onStop}>
       <Icon name="stop" size={30}/>
     </TouchableOpacity>
   )
 
   const PrevButton = () => (
-    <TouchableOpacity activeOpacity={0.5} onPress={() => {}}>
+    <TouchableOpacity activeOpacity={0.5} onPress={onPrevious}>
       <Icon name="step-backward" size={30}/>
     </TouchableOpacity>
   )
 
   const NextButton = () => (
-    <TouchableOpacity activeOpacity={0.5} onPress={() => {}}>
+    <TouchableOpacity activeOpacity={0.5} onPress={onNext}>
       <Icon name="step-forward" size={30}/>
     </TouchableOpacity>
   )
 
-  const togglePlay = () => {
-    isPlaying ? setIsPlaying(false) : setIsPlaying (true);
-  }
+  // if (
+  //   playbackState === TrackPlayer.STATE_PLAYING ||
+  //   playbackState === TrackPlayer.STATE_BUFFERING
+  // ) {
+  //   setIsPlaying (true);
+  // }else{
+  //   setIsPlaying(false);
+  // }
 
   const stopMusic = () => {
     setIsPlaying(false);
@@ -40,7 +65,7 @@ const Player = props => {
 
   const TogglePlay = () => {
     return(
-      <TouchableOpacity  activeOpacity={0.5} onPress={togglePlay}>
+      <TouchableOpacity  activeOpacity={0.5} onPress={onTogglePlayback}>
         {isPlaying ? <Icon name="pause" size={30} /> : <Icon name="play" size={30} />}
       </TouchableOpacity>
     )
@@ -49,13 +74,13 @@ const Player = props => {
   return (
     <View style={styles.container}>
       <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>{props.title}</Text>
+        <Text style={styles.sectionTitle}>{trackTitle}</Text>
         <Text style={styles.sectionDescription}>
         {props.description}
         </Text>
       </View>
       <View style={styles.imageContiner}>
-        <Image source={props.albumArt} style={styles.Image}/>
+        <Image resizeMode='stretch' source={trackArtwork} style={styles.Image}/>
       </View>
       <View style={styles.buttonsContainer}>
         <PrevButton />
