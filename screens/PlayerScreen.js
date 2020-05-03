@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {
     StyleSheet,
     View,
@@ -13,14 +13,43 @@ const PlayerScreen = props => {
   const title = props.navigation.getParam('title');
   const audioUrl = props.navigation.getParam('url');
   const albumArt = props.navigation.getParam('albumArt');
-  const PlayButton = () => (
-    <TouchableOpacity activeOpacity={0.5} onPress={() => {}}>
-    <Icon name="play" size={30}/>
-  </TouchableOpacity>
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const StopButton = props => (
+    <TouchableOpacity activeOpacity={0.5} onPress={stopMusic}>
+      <Icon name="stop" size={30}/>
+    </TouchableOpacity>
   )
 
+  const PrevButton = props => (
+    <TouchableOpacity activeOpacity={0.5} onPress={() => {}}>
+      <Icon name="step-backward" size={30}/>
+    </TouchableOpacity>
+  )
+
+  const NextButton = props => (
+    <TouchableOpacity activeOpacity={0.5} onPress={() => {}}>
+      <Icon name="step-forward" size={30}/>
+    </TouchableOpacity>
+  )
+
+  const togglePlay = () => {
+    isPlaying ? setIsPlaying(false) : setIsPlaying (true);
+  }
+
+  const stopMusic = () => {
+    setIsPlaying(false);
+  }
+
+  const TogglePlay = props => {
+    return(
+      <TouchableOpacity  activeOpacity={0.5} onPress={togglePlay}>
+        {isPlaying ? <Icon name="pause" size={30} /> : <Icon name="play" size={30} />}
+      </TouchableOpacity>
+    )
+  }
+
   return (
-    
     <View style={styles.container}>
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitle}>{title}</Text>
@@ -31,8 +60,11 @@ const PlayerScreen = props => {
       <View style={styles.imageContiner}>
         <Image source={albumArt} style={styles.Image}/>
       </View>
-      <View style={styles.buttonContainer}>
-        <PlayButton />
+      <View style={styles.buttonsContainer}>
+        <PrevButton />
+        <TogglePlay />
+        <StopButton />
+        <NextButton />
       </View>
     </View>
   )
@@ -87,10 +119,11 @@ const styles = StyleSheet.create({
       width: '100%',
       height: '100%'
     },
-    buttonContainer: {
+    buttonsContainer: {
       flexDirection: 'row',
-      width: '80%',
-      justifyContent: 'space-evenly'
+      width: '70%',
+      justifyContent: 'space-between',
+      marginVertical: 20
     }
   });
 
