@@ -19,6 +19,8 @@ const HomeScreen = props => {
                 routeName: 'Player', 
                 params: {
                   title: PlaylistData[0].title,
+                  url: PlaylistData[0].url,
+                  artist: PlaylistData[0].artist,
                   albumArt: PlaylistData[0].albumArt
                 }
             });

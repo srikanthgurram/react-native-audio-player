@@ -4,68 +4,23 @@ import {
     View,
     Text,
     Image,
-    Dimensions,
-    TouchableOpacity
+    Dimensions
 } from 'react-native';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
-  
+import Player from '../components/Player'
+
 const PlayerScreen = props => {
   const title = props.navigation.getParam('title');
   const audioUrl = props.navigation.getParam('url');
   const albumArt = props.navigation.getParam('albumArt');
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const StopButton = props => (
-    <TouchableOpacity activeOpacity={0.5} onPress={stopMusic}>
-      <Icon name="stop" size={30}/>
-    </TouchableOpacity>
-  )
-
-  const PrevButton = props => (
-    <TouchableOpacity activeOpacity={0.5} onPress={() => {}}>
-      <Icon name="step-backward" size={30}/>
-    </TouchableOpacity>
-  )
-
-  const NextButton = props => (
-    <TouchableOpacity activeOpacity={0.5} onPress={() => {}}>
-      <Icon name="step-forward" size={30}/>
-    </TouchableOpacity>
-  )
-
-  const togglePlay = () => {
-    isPlaying ? setIsPlaying(false) : setIsPlaying (true);
-  }
-
-  const stopMusic = () => {
-    setIsPlaying(false);
-  }
-
-  const TogglePlay = props => {
-    return(
-      <TouchableOpacity  activeOpacity={0.5} onPress={togglePlay}>
-        {isPlaying ? <Icon name="pause" size={30} /> : <Icon name="play" size={30} />}
-      </TouchableOpacity>
-    )
-  }
-
   return (
     <View style={styles.container}>
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>{title}</Text>
-        <Text style={styles.sectionDescription}>
-        {props.description}
-        </Text>
-      </View>
-      <View style={styles.imageContiner}>
-        <Image source={albumArt} style={styles.Image}/>
-      </View>
-      <View style={styles.buttonsContainer}>
-        <PrevButton />
-        <TogglePlay />
-        <StopButton />
-        <NextButton />
-      </View>
+      <Player 
+        title={title}
+        url={audioUrl}
+        albumArt={albumArt}
+      />
     </View>
   )
 }
@@ -75,7 +30,7 @@ const styles = StyleSheet.create({
       // backgroundColor: Colors.lighter,
       flex: 1,
       justifyContent: 'flex-start',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     body: {
       // backgroundColor: Colors.white,
