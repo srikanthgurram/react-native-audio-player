@@ -12,10 +12,10 @@ import {
   View,
   Text,
 } from 'react-native';
-import MainNavigation from './navigation/MainNavigation'
+import TabNavigator from './navigation/MainNavigation'
 
 const App: () => React$Node = () => {
-  return <MainNavigation />;
+  return <TabNavigator />;
 };
 
 const styles = StyleSheet.create({
