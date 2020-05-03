@@ -1,4 +1,5 @@
 # Audio Player using React Native
+Note: **The Application is still in Progress, not completed**
 
 ## Dependencies
 1. Install Navigation
