@@ -1,7 +1,5 @@
 # Audio Player using React Native
-```htnml
-<span style="color:orange;">The Application is still in Progress, not completed</span>
-```
+<span style="color:red;">The Application is still in Progress, not completed</span>
 
 ## Dependencies
 1. Install Navigation
