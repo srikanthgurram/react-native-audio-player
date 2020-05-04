@@ -23,11 +23,18 @@ const HomeScreen = props => {
                   artist: PlaylistData[0].artist,
                   albumArt: PlaylistData[0].albumArt
                 }
-            });
+              }) 
+              }
+            }/> 
+            <Button title='PlayList' onPress={() => {
+              props.navigation.navigate({
+                routeName: 'Playlist'
+              })            
             }}/>
         </View>
-    )
-}
+    );
+  }
+
 
 const styles = StyleSheet.create({
     scrollView: {

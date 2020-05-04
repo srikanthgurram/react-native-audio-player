@@ -85,7 +85,6 @@ const Player = props => {
       <View style={styles.buttonsContainer}>
         <PrevButton />
         <TogglePlay />
-        <StopButton />
         <NextButton />
       </View>
     </View>
