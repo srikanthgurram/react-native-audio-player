@@ -35,7 +35,7 @@ const Player = props => {
   const [trackTitle, setTrackTitle] = useState("");
   const [trackArtwork, setTrackArtwork] = useState();
   const [trackArtist, setTrackArtist] = useState("");
-  const { style, onNext, onPrevious, onTogglePlayback, onStop } = props;
+  const { onNext, onPrevious, onTogglePlayback, isPlaylist } = props;
 
   useTrackPlayerEvents(["playback-track-changed"], async event => {
     if (event.type === TrackPlayer.TrackPlayerEvents.PLAYBACK_TRACK_CHANGED) {
@@ -72,7 +72,7 @@ const Player = props => {
   const TogglePlay = () => {
     return(
       <TouchableOpacity  activeOpacity={0.5} onPress={onTogglePlayback}>
-        <Icon name={toggleButtonIcon} size={50} />
+        <Icon name={toggleButtonIcon} size={100} />
       </TouchableOpacity>
     )
   }
@@ -88,9 +88,9 @@ const Player = props => {
         <Text style={styles.artist} numberOfLines={1}>{trackArtist}</Text>      
       </View>
       <View style={styles.buttonsContainer}>
-        <PrevButton />
+        {isPlaylist ? <PrevButton /> : null}
         <TogglePlay />
-        <NextButton />
+        {isPlaylist ? <NextButton /> : null}
       </View>
     </View>
   )
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     },
     sectionContainer: {
       padding: 10,
-      width: '90%'
+      width: '90%',
     },
     title: {
       marginTop: 10,
@@ -150,9 +150,10 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
       flexDirection: 'row',
-      width: '90%',
+      width: '80%',
       justifyContent: 'space-evenly',
-      marginVertical: 20,
+      alignItems: 'center',
+      marginVertical: 10,
     },
     progress: {
       height: 1,

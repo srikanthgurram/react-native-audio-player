@@ -3,17 +3,14 @@ import {
     StyleSheet,
     View,
     Text,
-    Image,
     Dimensions
 } from 'react-native';
 import Player from '../components/Player'
 import TrackPlayer, { usePlaybackState } from "react-native-track-player";
 import localTrack from "../resources/pure.m4a";
-// import { PlaylistData } from '../data/dummy-data'
 import playlistData from "../data/playlist.json";
 
 const PlayListScreen = props => {
-  const [isPlaying, setIsPlaying] = useState(false);
   const playbackState = usePlaybackState();
 
   useEffect(() => {
@@ -46,14 +43,6 @@ const PlayListScreen = props => {
     if (currentTrack == null) {
       await TrackPlayer.reset();
       await TrackPlayer.add(playlistData);
-      await TrackPlayer.add({
-        id: "local-track",
-        url: localTrack,
-        title: "Pure (Demo)",
-        artist: "David Chavez",
-        artwork: "https://picsum.photos/200",
-        duration: 28
-      });
       await TrackPlayer.play();
     } else {
       if (playbackState === TrackPlayer.STATE_PAUSED) {
@@ -70,7 +59,7 @@ const PlayListScreen = props => {
         onNext={skipToNext}
         onPrevious={skipToPrevious}
         onTogglePlayback={togglePlayback}
-        onStop={stopPlayback}
+        isPlaylist={true}
       />
       <Text style={styles.state}>{getStateName(playbackState)}</Text>
     </View>
@@ -101,12 +90,6 @@ async function skipToNext() {
 async function skipToPrevious() {
   try {
     await TrackPlayer.skipToPrevious();
-  } catch (_) {}
-}
-
-async function stopPlayback() {
-  try {
-    await TrackPlayer.stop();
   } catch (_) {}
 }
 

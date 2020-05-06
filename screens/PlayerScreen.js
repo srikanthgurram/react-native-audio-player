@@ -66,7 +66,7 @@ const PlayerScreen = props => {
         onNext={skipToNext}
         onPrevious={skipToPrevious}
         onTogglePlayback={togglePlayback}
-        onStop={stopPlayback}
+        isPlaylist={false}
       />
       <Text style={styles.state}>{getStateName(playbackState)}</Text>
     </View>
