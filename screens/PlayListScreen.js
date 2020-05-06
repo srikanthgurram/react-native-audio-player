@@ -9,12 +9,10 @@ import {
 import Player from '../components/Player'
 import TrackPlayer, { usePlaybackState } from "react-native-track-player";
 import localTrack from "../resources/pure.m4a";
-import { PlaylistData } from '../data/dummy-data'
+// import { PlaylistData } from '../data/dummy-data'
+import playlistData from "../data/playlist.json";
 
 const PlayListScreen = props => {
-  const title = props.navigation.getParam('title');
-  const audioUrl = props.navigation.getParam('url');
-  const albumArt = props.navigation.getParam('albumArt');
   const [isPlaying, setIsPlaying] = useState(false);
   const playbackState = usePlaybackState();
 
@@ -47,13 +45,13 @@ const PlayListScreen = props => {
     const currentTrack = await TrackPlayer.getCurrentTrack();
     if (currentTrack == null) {
       await TrackPlayer.reset();
-      await TrackPlayer.add(PlaylistData);
+      await TrackPlayer.add(playlistData);
       await TrackPlayer.add({
         id: "local-track",
         url: localTrack,
         title: "Pure (Demo)",
         artist: "David Chavez",
-        artwork: require("../resources/pure.jpg"),
+        artwork: "https://picsum.photos/200",
         duration: 28
       });
       await TrackPlayer.play();
@@ -112,18 +110,6 @@ async function stopPlayback() {
   } catch (_) {}
 }
 
-async function fastForward() {
-  try {
-    await TrackPlayer.stop();
-  } catch (_) {}
-}
-
-async function fastBackward() {
-  try {
-    await TrackPlayer.stop();
-  } catch (_) {}
-}
-
 const styles = StyleSheet.create({
     container: {
       // backgroundColor: Colors.lighter,
@@ -161,9 +147,9 @@ const styles = StyleSheet.create({
       textAlign: 'right',
     },
     imageContiner: {
-      width: Dimensions.get('window').width < 300 ? 200:240,
-      height: Dimensions.get('window').height < 600 ? 200:240,
-      borderRadius: Dimensions.get('window').width < 300 ? 100:120,
+      width: (Dimensions.get('window').width) / 2,
+      height: (Dimensions.get('window').height)/3,
+      borderRadius: (Dimensions.get('window').width) / 4,
       overflow: 'hidden',
       borderWidth: 1,
       alignItems: 'center',

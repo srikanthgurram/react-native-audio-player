@@ -1,34 +1,36 @@
 [
   {
     "id": "1111",
-    "url": "https://drive.google.com/uc?export=download&id=1AjPwylDJgR8DOnmJWeRgZzjsohi-7ekj",
-    "title": "Longing",
-    "artist": "David Chavez",
-    "artwork": "https://picsum.photos/200",
-    "duration": 143
+    "url":"https://firebasestorage.googleapis.com/v0/b/podcasts-617e4.appspot.com/o/manual_upload%2Faudio%2FAdavi%20Rambabu%20(Adavi%20Manishi)%20Hilarious%20Comedy%20Scene%20-%20Nani%2C%20Narsingh%20Yadhav.mp3?alt=media&token=bd250c66-955f-412d-b419-9378cfdfa471",
+    "title": "Adavi Rambabu (Adavi Manishi) Hilarious Comedy Scene - Nani, Narsingh Yadhav",
+    "artist": "Nani",
+    "artwork": "https://firebasestorage.googleapis.com/v0/b/podcasts-617e4.appspot.com/o/manual_upload%2Fimages%2Fadavi%20rambabu.jpg?alt=media&token=a58a5ef2-8077-400d-9d9d-ed1aacc076b9",
+    "duration": 141
   },
   {
-    "id": "2222",
-    "url": "https://drive.google.com/uc?export=download&id=1VM9_umeyzJn0v1pRzR1BSm9y3IhZ3c0E",
-    "title": "Soul Searching (Demo)",
-    "artist": "David Chavez",
-    "artwork": "https://picsum.photos/200",
-    "duration": 77
+    "id": "1112",
+    "url": "https://firebasestorage.googleapis.com/v0/b/podcasts-617e4.appspot.com/o/manual_upload%2Faudio%2FBang%20-%20cock%20(Jabardasth%20Venu)%20Hilarious%20Comedy%20Scene%20With%20Chamki...mp3?alt=media&token=a9a0831f-fe27-484c-abdc-69583ecf0e39",
+    "title": "Bang - cock (Jabardasth Venu) Hilarious Comedy Scene With Chamki..",
+    "artist": "Nani",
+    "artwork": "https://firebasestorage.googleapis.com/v0/b/podcasts-617e4.appspot.com/o/manual_upload%2Fimages%2FBang%20Cock.jpg?alt=media&token=0512707f-3714-4c55-9c45-4110b77d6bc7",
+    "duration": 173
   },
   {
-    "id": "3333",
-    "url": "https://drive.google.com/uc?export=download&id=1bmvPOy2IVbkUROgm0dqiZry_miiL4OqI",
-    "title": "Lullaby (Demo)",
-    "artist": "David Chavez",
-    "artwork": "https://picsum.photos/200",
-    "duration": 71
+    "id": "1115",
+    "url": "https://firebasestorage.googleapis.com/v0/b/podcasts-617e4.appspot.com/o/manual_upload%2Faudio%2FNelavanka%20Movie%20-%20Comedy%20Scenes%20Suthi%20Velu%2C%20Suthi%20Veerabhadra%20Rao.mp3?alt=media&token=77f993a0-33cb-4b13-b175-2d605b953c42",
+    "title": "Nelavanka Movie - Comedy Scenes Suthi Velu, Suthi Veerabhadra Rao",
+    "artist": "Jandhyala",
+    "artwork": "https://firebasestorage.googleapis.com/v0/b/podcasts-617e4.appspot.com/o/manual_upload%2Fimages%2Fnelavanka%20comedy.jpg?alt=media&token=dd9d9184-e265-4704-b28e-4c5d2e13719f",
+    "duration": 190
   },
   {
-    "id": "4444",
-    "url": "https://drive.google.com/uc?export=download&id=1V-c_WmanMA9i5BwfkmTs-605BQDsfyzC",
-    "title": "Rhythm City (Demo)",
-    "artist": "David Chavez",
-    "artwork": "https://picsum.photos/200",
-    "duration": 106
+    "id": "1116",
+    "url": "https://firebasestorage.googleapis.com/v0/b/podcasts-617e4.appspot.com/o/manual_upload%2Faudio%2FJandhyala%20Comedy%20Scenes%20-%20Suthi%20Veerabhadra%20Rao%20Stroy%20(Madyataragati%20Vedava%20Nayala)%20-%20Brahmanand.mp3?alt=media&token=5a3130fb-b494-4df3-a459-b8117d2cf81d",
+    "title": "Jandhyala Comedy Scenes - Suthi Veerabhadra Rao Stroy (Madyataragati Vedava Nayala) - Brahmanand",
+    "artist": "Jandhyala",
+    "artwork": "https://firebasestorage.googleapis.com/v0/b/podcasts-617e4.appspot.com/o/manual_upload%2Fimages%2Fjandhyala%20comedy.jpg?alt=media&token=43e7824b-7282-4f45-a7b9-6118d81e1c56",
+    "duration": 210
   }
 ]
+
+

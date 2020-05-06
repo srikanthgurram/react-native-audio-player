@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {
     StyleSheet,
     View,
@@ -14,12 +14,27 @@ import TrackPlayer, {
   useTrackPlayerEvents
 } from "react-native-track-player";
 
+const ProgressBar = () => {
+  const progress = useTrackPlayerProgress();
+
+  return (
+    <View style={styles.progress}>
+      <View style={{ flex: progress.position, backgroundColor: "red" }} />
+      <View
+        style={{
+          flex: progress.duration - progress.position,
+          backgroundColor: "grey"
+        }}
+      />
+    </View>
+  );
+}
+
 const Player = props => {
   const playbackState = usePlaybackState();
   const [trackTitle, setTrackTitle] = useState("");
   const [trackArtwork, setTrackArtwork] = useState();
   const [trackArtist, setTrackArtist] = useState("");
-  const [isPlaying, setIsPlaying] = useState(false);
   const { style, onNext, onPrevious, onTogglePlayback, onStop } = props;
 
   useTrackPlayerEvents(["playback-track-changed"], async event => {
@@ -31,56 +46,46 @@ const Player = props => {
       setTrackArtwork(artwork);
     }
   });
+  let  toggleButtonIcon = "pause-circle";
 
-  const StopButton = () => (
-    <TouchableOpacity activeOpacity={0.5} onPress={onStop}>
-      <Icon name="stop" size={30}/>
-    </TouchableOpacity>
-  )
+  if (
+    playbackState === TrackPlayer.STATE_PLAYING ||
+    playbackState === TrackPlayer.STATE_BUFFERING
+  ) {
+    toggleButtonIcon = "pause-circle";
+  }else{
+    toggleButtonIcon = "play-circle";
+  }
 
   const PrevButton = () => (
     <TouchableOpacity activeOpacity={0.5} onPress={onPrevious}>
-      <Icon name="step-backward" size={30}/>
+      <Icon name="step-backward" size={40}/>
     </TouchableOpacity>
   )
 
   const NextButton = () => (
     <TouchableOpacity activeOpacity={0.5} onPress={onNext}>
-      <Icon name="step-forward" size={30}/>
+      <Icon name="step-forward" size={40}/>
     </TouchableOpacity>
   )
-
-  // if (
-  //   playbackState === TrackPlayer.STATE_PLAYING ||
-  //   playbackState === TrackPlayer.STATE_BUFFERING
-  // ) {
-  //   setIsPlaying (true);
-  // }else{
-  //   setIsPlaying(false);
-  // }
-
-  const stopMusic = () => {
-    setIsPlaying(false);
-  }
 
   const TogglePlay = () => {
     return(
       <TouchableOpacity  activeOpacity={0.5} onPress={onTogglePlayback}>
-        {isPlaying ? <Icon name="pause" size={30} /> : <Icon name="play" size={30} />}
+        <Icon name={toggleButtonIcon} size={50} />
       </TouchableOpacity>
     )
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>{trackTitle}</Text>
-        <Text style={styles.sectionDescription}>
-        {props.description}
-        </Text>
-      </View>
       <View style={styles.imageContiner}>
-        <Image resizeMode='stretch' source={trackArtwork} style={styles.Image}/>
+        <Image style={styles.image} source={{uri: trackArtwork}}  />
+      </View>
+      <ProgressBar />
+      <View style={styles.sectionContainer}>
+        <Text style={styles.title} numberOfLines={2}>{trackTitle}</Text>
+        <Text style={styles.artist} numberOfLines={1}>{trackArtist}</Text>      
       </View>
       <View style={styles.buttonsContainer}>
         <PrevButton />
@@ -96,19 +101,22 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'flex-start',
       alignItems: 'center',
+      marginVertical: 20,
     },
     body: {
       // backgroundColor: Colors.white,
     },
     sectionContainer: {
-      marginTop: 32,
-      paddingHorizontal: 24,
+      padding: 10,
+      width: '90%'
     },
-    sectionTitle: {
-      fontSize: 24,
-      fontWeight: '600',
-      // color: Colors.black,
+    title: {
+      marginTop: 10,
+      fontSize: Dimensions.get('window').height < 600 ? 14:16
     },
+    artist: {
+      fontWeight: "bold"
+    },    
     sectionDescription: {
       marginTop: 8,
       fontSize: 18,
@@ -127,24 +135,31 @@ const styles = StyleSheet.create({
       textAlign: 'right',
     },
     imageContiner: {
-      width: Dimensions.get('window').width < 300 ? 200:240,
-      height: Dimensions.get('window').height < 600 ? 200:240,
-      borderRadius: Dimensions.get('window').width < 300 ? 100:120,
-      overflow: 'hidden',
+      width: Dimensions.get('window').width < 300 ? 180:300,
+      height: Dimensions.get('window').height < 600 ? 180:300,
+      borderRadius: Dimensions.get('window').width < 300 ? 90:150,      overflow: 'hidden',
       borderWidth: 1,
       alignItems: 'center',
       justifyContent: 'center',
     },
     image:{
       width: '100%',
-      height: '100%'
+      height: '100%',
+      resizeMode: 'stretch',
+      backgroundColor: 'grey'
     },
     buttonsContainer: {
       flexDirection: 'row',
       width: '90%',
       justifyContent: 'space-evenly',
       marginVertical: 20,
-    }
+    },
+    progress: {
+      height: 1,
+      width: "90%",
+      marginTop: 10,
+      flexDirection: "row"
+    },    
   });
 
   export default Player;

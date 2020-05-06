@@ -8,14 +8,15 @@ import {
 } from 'react-native';
 import Player from '../components/Player'
 import TrackPlayer, { usePlaybackState } from "react-native-track-player";
-import localTrack from "../resources/pure.m4a";
-import { PlaylistData } from '../data/dummy-data'
 
 const PlayerScreen = props => {
+  const trackId = props.navigation.getParam('trackId');
   const title = props.navigation.getParam('title');
   const audioUrl = props.navigation.getParam('url');
-  const albumArt = props.navigation.getParam('albumArt');
-  const [isPlaying, setIsPlaying] = useState(false);
+  const artWork = props.navigation.getParam('artWork');
+  const artist = props.navigation.getParam('artist');
+  const duration = props.navigation.getParam('duration');
+
   const playbackState = usePlaybackState();
 
   useEffect(() => {
@@ -29,9 +30,6 @@ const PlayerScreen = props => {
       capabilities: [
         TrackPlayer.CAPABILITY_PLAY,
         TrackPlayer.CAPABILITY_PAUSE,
-        TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-        TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-        TrackPlayer.CAPABILITY_STOP
       ],
       compactCapabilities: [
         TrackPlayer.CAPABILITY_PLAY,
@@ -44,14 +42,13 @@ const PlayerScreen = props => {
     const currentTrack = await TrackPlayer.getCurrentTrack();
     if (currentTrack == null) {
       await TrackPlayer.reset();
-      await TrackPlayer.add(PlaylistData);
       await TrackPlayer.add({
-        id: "local-track",
-        url: localTrack,
-        title: "Pure (Demo)",
-        artist: "David Chavez",
-        artwork: require("../resources/pure.jpg"),
-        duration: 28
+        id: trackId,
+        url: audioUrl,
+        title: title,
+        artist: artist,
+        artwork: artWork,
+        duration: duration
       });
       await TrackPlayer.play();
     } else {
@@ -146,9 +143,9 @@ const styles = StyleSheet.create({
       textAlign: 'right',
     },
     imageContiner: {
-      width: Dimensions.get('window').width < 300 ? 200:240,
-      height: Dimensions.get('window').height < 600 ? 200:240,
-      borderRadius: Dimensions.get('window').width < 300 ? 100:120,
+      width: Dimensions.get('window').width < 300 ? 180:300,
+      height: Dimensions.get('window').height < 600 ? 180:300,
+      borderRadius: Dimensions.get('window').width < 300 ? 90:150,     
       overflow: 'hidden',
       borderWidth: 1,
       alignItems: 'center',
@@ -160,7 +157,7 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
       flexDirection: 'row',
-      width: '70%',
+      width: '80%',
       justifyContent: 'space-between',
       marginVertical: 20
     }
