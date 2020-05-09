@@ -12,6 +12,16 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PlayerScreen from '../screens/PlayerScreen'
 import PlayListScreen from '../screens/PlayListScreen'
+const defaultNavigationOptions =  {
+    headerStyle: {
+        backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
+    },
+    headerTintColor: Platform.OS === 'android' ? '#fff' : Colors.primaryColor,
+    headerTitleStyle: {
+        fontWeight: 'bold',
+    },
+    headerBackTitle: 'Back'
+}
 
 const PodcastsNavigation = createStackNavigator({
     Categories: {
@@ -49,16 +59,15 @@ const PodcastsNavigation = createStackNavigator({
     }
 }, {
     mode: 'modal',
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
-        },
-        headerTintColor: Platform.OS === 'android' ? '#fff' : Colors.primaryColor,
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
-        headerBackTitle: 'Back'
-    }
+    defaultNavigationOptions: defaultNavigationOptions
+})
+
+const FaviouritesStack = createStackNavigator({
+    Favorites: FavoritesScreen,
+    Player: PlayerScreen
+}, {
+    mode: 'modal',
+    defaultNavigationOptions: defaultNavigationOptions
 })
 
 const TabBarNavigator = createBottomTabNavigator({
@@ -77,7 +86,7 @@ const TabBarNavigator = createBottomTabNavigator({
         } 
     },
     Favorites: {
-        screen: FavoritesScreen,
+        screen: FaviouritesStack,
         navigationOptions: {
             tabBarIcon: tabInfo => {
                 return (
