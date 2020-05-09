@@ -12,9 +12,33 @@ import {
   View,
   Text,
 } from 'react-native';
-import TabNavigator from './navigation/MainNavigation'
+// import TabNavigator from './navigation/MainNavigation'
+import TabNavigator from './navigation/PodcastsNavigation'
+import {
+  setJSExceptionHandler,
+  setNativeExceptionHandler,
+  getJSExceptionHandler
+} from 'react-native-exception-handler';
+
+const handleError = (error, isFatal) => {
+  // fetch
+  console.log(error, isFatal);
+  alert(error.name);
+};
+
+setJSExceptionHandler((error, isFatal) => {
+  console.log('caught global error');
+  handleError(error, isFatal);
+}, true);
+
+setNativeExceptionHandler(errorString => {
+  // do the things
+});
+
+const currentHandler = getJSExceptionHandler();
 
 const App: () => React$Node = () => {
+  // return <TabNavigator />;
   return <TabNavigator />;
 };
 

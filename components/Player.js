@@ -32,18 +32,20 @@ const ProgressBar = () => {
 
 const Player = props => {
   const playbackState = usePlaybackState();
-  const [trackTitle, setTrackTitle] = useState("");
-  const [trackArtwork, setTrackArtwork] = useState();
-  const [trackArtist, setTrackArtist] = useState("");
+  const [trackTitle, setTrackTitle] = useState(props.title);
+  const [trackArtwork, setTrackArtwork] = useState(props.artWork);
+  const [trackArtist, setTrackArtist] = useState(props.artist);
   const { onNext, onPrevious, onTogglePlayback, isPlaylist } = props;
 
   useTrackPlayerEvents(["playback-track-changed"], async event => {
     if (event.type === TrackPlayer.TrackPlayerEvents.PLAYBACK_TRACK_CHANGED) {
       const track = await TrackPlayer.getTrack(event.nextTrack);
-      const { title, artist, artwork } = track || {};
-      setTrackTitle(title);
-      setTrackArtist(artist);
-      setTrackArtwork(artwork);
+      const { title, artist, artwork } = track;
+      if(track !== {}){
+        setTrackTitle(title);
+        setTrackArtist(artist);
+        setTrackArtwork(artwork);  
+      }
     }
   });
   let  toggleButtonIcon = "pause-circle";

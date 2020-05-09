@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {
     StyleSheet,
     View,
     Text,
-    Image,
     Dimensions
 } from 'react-native';
 import Player from '../components/Player'
 import TrackPlayer, { usePlaybackState } from "react-native-track-player";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const PlayerScreen = props => {
   const trackId = props.navigation.getParam('trackId');
@@ -67,6 +67,9 @@ const PlayerScreen = props => {
         onPrevious={skipToPrevious}
         onTogglePlayback={togglePlayback}
         isPlaylist={false}
+        title={title}
+        artWork={artWork}
+        url={audioUrl}
       />
       <Text style={styles.state}>{getStateName(playbackState)}</Text>
     </View>
@@ -104,6 +107,20 @@ async function stopPlayback() {
   try {
     await TrackPlayer.stop();
   } catch (_) {}
+}
+
+PlayerScreen.navigationOptions = navigationData => {
+  const title = (navigationData.navigation.getParam('title')).slice(0,22)+'...'
+
+  return {
+      headerTitle: title,
+      headerRight: () => (
+          <View style={styles.iconContainer}>
+          <Icon name={Platform.OS === "ios" ? "ios-heart" : "ios-heart-empty"} size={25} color='white'/>
+        </View>
+  
+      ),
+  }
 }
 
 const styles = StyleSheet.create({
@@ -160,7 +177,10 @@ const styles = StyleSheet.create({
       width: '80%',
       justifyContent: 'space-between',
       marginVertical: 20
-    }
+    },
+    iconContainer:{
+      flexDirection: 'row'
+    },    
   });
 
   export default PlayerScreen;
