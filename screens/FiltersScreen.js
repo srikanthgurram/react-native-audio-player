@@ -7,7 +7,7 @@ const FiltersScreen = props => {
         <View style={styles.container}>
             <Text>Filters Screen</Text>
 
-            <Button title='Next' onPress={ () => {
+            <Button  color={Colors.primaryColor} title='Next' onPress={ () => {
                 props.navigation.navigate({routeName: 'Favorites'})
             }}/>            
         </View>

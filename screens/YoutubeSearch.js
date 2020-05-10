@@ -13,7 +13,7 @@ import {
 import Input from '../components/Input'
 import Icon from 'react-native-vector-icons/Ionicons';
 import Config from "react-native-config";
-
+import Colors from '../constants/Colors';
 
 export default function YoutubeSearch() {
     const [loading, setLoading] = useState(true);
@@ -95,18 +95,18 @@ export default function YoutubeSearch() {
                     />
                 </View>
                 <View style={styles.searchButton}>
-                    <Icon.Button name="ios-search" onPress={searchButtonHandler}>
-                        <Text style={{ fontFamily: 'Arial', fontSize: 20 }}>
+                    <Icon.Button name="ios-search" backgroundColor={Colors.primaryColor} onPress={searchButtonHandler}>
+                        <Text style={styles.searchButtonText}>
                         Search
                         </Text>
                     </Icon.Button >
                 </View>
             </View>    
             <FlatList
-            data={dataSource}
-            ItemSeparatorComponent = {FlatListItemSeparator}
-            renderItem = {itemData => _renderItem(itemData.item.snippet)}
-            keyExtractor = {item => item.id.videoId}
+                data={dataSource}
+                ItemSeparatorComponent = {FlatListItemSeparator}
+                renderItem = {itemData => _renderItem(itemData.item.snippet)}
+                keyExtractor = {item => item.id.videoId}
             />
             </View>
         </TouchableWithoutFeedback>
@@ -170,5 +170,9 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontSize: 16,
         // fontFamily: 'Roboto-Regular'
-    },  
+    },
+    searchButtonText:{
+        fontSize: 20, 
+        color:'#ffff'
+    }
   });

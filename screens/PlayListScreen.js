@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {
     StyleSheet,
     View,
@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import Player from '../components/Player'
 import TrackPlayer, { usePlaybackState } from "react-native-track-player";
-import localTrack from "../resources/pure.m4a";
 import playlistData from "../data/playlist.json";
 
 const PlayListScreen = props => {

@@ -6,7 +6,7 @@ const FavoritesScreen = props => {
     return (
         <View style={styles.container}>
             <Text>Favorites Screen</Text>
-            <Button title='Back to Home' onPress={() => {
+            <Button color={Colors.primaryColor} title='Back to Home' onPress={() => {
                 props.navigation.popToTop()
             }}/>             
         </View>
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-      },
+    }
 })
 
 export default FavoritesScreen;

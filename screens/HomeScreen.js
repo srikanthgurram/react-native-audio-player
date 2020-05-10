@@ -6,6 +6,7 @@ import {
     Button
 } from 'react-native';
 import playlistData from "../data/playlist.json";
+import Colors from '../constants/Colors'
 
 const HomeScreen = props => {
     return (
@@ -32,7 +33,7 @@ const HomeScreen = props => {
                 }/> 
               </View>
               <View style={styles.button}>
-                <Button title='PlayList' onPress={() => {
+                <Button  color={Colors.primaryColor} title='PlayList' onPress={() => {
                   props.navigation.navigate({
                     routeName: 'Playlist'
                   })            

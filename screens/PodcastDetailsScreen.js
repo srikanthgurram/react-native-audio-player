@@ -2,6 +2,7 @@ import React from 'react'
 import {View, Text, StyleSheet, Button, Platform, Image, Dimensions} from 'react-native'
 import { PODCASTS } from '../data/dummy-data'
 import Icon from 'react-native-vector-icons/Ionicons';
+import Colors from '../constants/Colors'
 
 const PodcastDetailScreen = props => {
     const podcastId = props.navigation.getParam('podcastId');
@@ -14,10 +15,7 @@ const PodcastDetailScreen = props => {
                 <Image style={styles.image} source={selectedPodcast.imageUrl}/>
             </View>
 
-   
-
-
-            <Button title='Next' onPress={ () => {
+            <Button  color={Colors.primaryColor} title='Next' onPress={ () => {
                 props.navigation.navigate({routeName: 'Filters'})
             }}/>              
         </View>
