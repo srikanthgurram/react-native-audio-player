@@ -81,6 +81,8 @@ target 'Player' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+
   target 'PlayerTests' do
     inherit! :complete
     # Pods for testing

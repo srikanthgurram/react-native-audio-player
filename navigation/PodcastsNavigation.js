@@ -12,6 +12,9 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PlayerScreen from '../screens/PlayerScreen'
 import PlayListScreen from '../screens/PlayListScreen'
+import YoutubeSearch from '../screens/YoutubeSearch'
+
+
 const defaultNavigationOptions =  {
     headerStyle: {
         backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
@@ -56,6 +59,9 @@ const PodcastsNavigation = createStackNavigator({
     },
     Playlist: {
         screen: PlayListScreen
+    },
+    Search: {
+        screen: YoutubeSearch
     }
 }, {
     mode: 'modal',
@@ -64,7 +70,16 @@ const PodcastsNavigation = createStackNavigator({
 
 const FaviouritesStack = createStackNavigator({
     Favorites: FavoritesScreen,
-    Player: PlayerScreen
+    Player: PlayerScreen,
+    Search: YoutubeSearch
+}, {
+    mode: 'modal',
+    defaultNavigationOptions: defaultNavigationOptions
+})
+
+const SearchStack = createStackNavigator({
+    Search: YoutubeSearch,
+    Player: PlayerScreen,
 }, {
     mode: 'modal',
     defaultNavigationOptions: defaultNavigationOptions
@@ -85,6 +100,20 @@ const TabBarNavigator = createBottomTabNavigator({
               }
         } 
     },
+    Search: {
+        screen: SearchStack,
+        navigationOptions: {
+            tabBarIcon: tabInfo => {
+                return (
+                  <Icon
+                    name="ios-search"
+                    size={25}
+                    color={tabInfo.tintColor}
+                  />
+                );
+            }
+        }        
+    },
     Favorites: {
         screen: FaviouritesStack,
         navigationOptions: {
@@ -98,7 +127,7 @@ const TabBarNavigator = createBottomTabNavigator({
                 );
             }
         }
-    },
+    }    
 },{
     tabBarOptions: {
         activeBackgroundColor: '',
